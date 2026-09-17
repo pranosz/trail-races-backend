@@ -1,8 +1,6 @@
 package com.trailraces.race;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RaceRepository {
-
-    List<Race> findAll();
+public interface RaceRepository extends JpaRepository<Race, Long> {
 }
