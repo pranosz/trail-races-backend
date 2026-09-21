@@ -27,6 +27,9 @@ public class Race {
     private String description;
     private String websiteUrl;
 
+    public Race() {
+    }
+
     public Race(
             Long id,
             String name,
