@@ -1,7 +1,7 @@
 package com.trailraces.race;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +13,7 @@ public class RaceService {
         this.raceRepository = raceRepository;
     }
 
-    public List<Race> getAllRaces() {
-        return raceRepository.findAll();
+    public Page<Race> getAllRaces(Pageable pageable) {
+        return raceRepository.findAll(pageable);
     }
 }

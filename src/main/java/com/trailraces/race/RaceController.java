@@ -1,9 +1,9 @@
 package com.trailraces.race;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class RaceController {
@@ -14,8 +14,7 @@ public class RaceController {
     }
 
     @GetMapping("/api/races")
-    public List<Race> getRaces() {
-        
-        return raceService.getAllRaces();
+    public Page<Race> getRaces(Pageable pageable) {
+        return raceService.getAllRaces(pageable);
     }
 }
