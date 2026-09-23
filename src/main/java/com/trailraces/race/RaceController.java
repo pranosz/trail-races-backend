@@ -3,10 +3,13 @@ package com.trailraces.race;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+
 @RestController
+@Validated
 public class RaceController {
 
     private final RaceService raceService;
@@ -17,15 +20,13 @@ public class RaceController {
 
     @GetMapping("/api/races")
     public Page<Race> getRaces(
-            @RequestParam(required = false) String search,
-            @RequestParam(required = false) Double distanceFrom,
-            @RequestParam(required = false) Double distanceTo,
+            @Valid RaceSearchCriteria criteria,
             Pageable pageable) {
 
         return raceService.getRaces(
-                search,
-                distanceFrom,
-                distanceTo,
+                criteria.search(),
+                criteria.distanceFrom(),
+                criteria.distanceTo(),
                 pageable
         );
     }
