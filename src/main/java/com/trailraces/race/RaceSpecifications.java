@@ -22,4 +22,33 @@ public final class RaceSpecifications {
                         distanceTo
                 );
     }
+
+    public static Specification<Race> search(String search) {
+        return (root, query, criteriaBuilder) -> {
+            String pattern = "%" + search.toLowerCase() + "%";
+
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("name")),
+                            pattern
+                    ),
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("location")),
+                            pattern
+                    ),
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("currency")),
+                            pattern
+                    ),
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("description")),
+                            pattern
+                    ),
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("websiteUrl")),
+                            pattern
+                    )
+            );
+        };
+    }
 }

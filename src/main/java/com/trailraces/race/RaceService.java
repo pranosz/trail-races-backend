@@ -23,14 +23,24 @@ public class RaceService {
     }
 
     public Page<Race> getRaces(
+            String search,
             Double distanceFrom,
             Double distanceTo,
             Pageable pageable) {
 
         Specification<Race> specification = null;
 
+        if (search != null && !search.isBlank()) {
+            specification = RaceSpecifications.search(search);
+        }
+
         if (distanceFrom != null) {
-            specification = RaceSpecifications.distanceFrom(distanceFrom);
+            Specification<Race> distanceFromSpecification =
+                    RaceSpecifications.distanceFrom(distanceFrom);
+
+            specification = specification == null
+                    ? distanceFromSpecification
+                    : specification.and(distanceFromSpecification);
         }
 
         if (distanceTo != null) {

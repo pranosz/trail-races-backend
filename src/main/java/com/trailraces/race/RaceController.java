@@ -22,18 +22,11 @@ public class RaceController {
             @RequestParam(required = false) Double distanceTo,
             Pageable pageable) {
 
-        if (distanceFrom != null || distanceTo != null) {
-            return raceService.getRaces(
-                    distanceFrom,
-                    distanceTo,
-                    pageable
-            );
-        }
-
-        if (search == null || search.isBlank()) {
-            return raceService.getAllRaces(pageable);
-        }
-
-        return raceService.searchRaces(search, pageable);
+        return raceService.getRaces(
+                search,
+                distanceFrom,
+                distanceTo,
+                pageable
+        );
     }
 }
