@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RaceController {
+
     private final RaceService raceService;
 
     public RaceController(RaceService raceService) {
@@ -17,7 +18,17 @@ public class RaceController {
     @GetMapping("/api/races")
     public Page<Race> getRaces(
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) Double distanceFrom,
+            @RequestParam(required = false) Double distanceTo,
             Pageable pageable) {
+
+        if (distanceFrom != null || distanceTo != null) {
+            return raceService.getRaces(
+                    distanceFrom,
+                    distanceTo,
+                    pageable
+            );
+        }
 
         if (search == null || search.isBlank()) {
             return raceService.getAllRaces(pageable);
