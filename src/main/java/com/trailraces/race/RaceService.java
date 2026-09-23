@@ -14,14 +14,6 @@ public class RaceService {
         this.raceRepository = raceRepository;
     }
 
-    public Page<Race> getAllRaces(Pageable pageable) {
-        return raceRepository.findAll(pageable);
-    }
-
-    public Page<Race> searchRaces(String search, Pageable pageable) {
-        return raceRepository.search(search, pageable);
-    }
-
     public Page<Race> getRaces(
             String search,
             Double distanceFrom,
